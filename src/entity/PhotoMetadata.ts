@@ -43,7 +43,7 @@ export class PhotoMetadata {
   @Column()
   comment: string;
 
-  @OneToOne((type) => Photo) // it allows us to create a one-to-one relationship between two entities
-  @JoinColumn() //this side of the relationship will own the relationship
+  @OneToOne((type) => Photo, (photo) => photo.metadata)
+  @JoinColumn()
   photo: Photo;
 }
