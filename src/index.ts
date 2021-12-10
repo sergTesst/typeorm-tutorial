@@ -6,14 +6,22 @@ createConnection()
   .then(async (connection) => {
     const photoRepository = connection.getRepository(Photo);
 
-    let firstPhotoByNameToUpdate = await photoRepository.findOne({
-      name: "User 1 name",
-    });
-    firstPhotoByNameToUpdate.description = "Me, updating the description";
+    const photoToDelete = new Photo(
+      "User to delete",
+      "delete me",
+      "delete.jpg",
+      2,
+      true
+    );
+    await photoRepository.save(photoToDelete);
 
-    const savedResult = await photoRepository.save(firstPhotoByNameToUpdate);
-    console.log("savedResult", savedResult);
-
-    console.log("firstPhotoByNameToUpdate", firstPhotoByNameToUpdate);
+    console.log("all photos", await photoRepository.find());
+    console.log(
+      "deleted result ",
+      await photoRepository.remove(
+        await photoRepository.findOne({ name: photoToDelete.name })
+      )
+    );
+    console.log("all photos after deletion", await photoRepository.find());
   })
   .catch((error) => console.log(error));

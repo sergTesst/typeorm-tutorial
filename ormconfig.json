@@ -5,7 +5,7 @@
   "username": "postgres",
   "password": "serhii_pass",
   "database": "test-orm-tutorial",
-  "synchronize": true,
+  "synchronize": false,
   "logging": true,
   "migrationsRun": false,
   "entities": ["src/entity/**/*.ts"],
