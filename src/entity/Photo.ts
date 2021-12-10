@@ -37,6 +37,8 @@ export class Photo {
   @Column()
   isPublished: boolean;
 
-  @OneToOne((type) => PhotoMetadata, (photoMetadata) => photoMetadata.photo)
+  @OneToOne((type) => PhotoMetadata, (photoMetadata) => photoMetadata.photo, {
+    cascade: true, // allows us to save a photo object and the metadata object will be saved automatically because of cascade options
+  })
   metadata: PhotoMetadata;
 }

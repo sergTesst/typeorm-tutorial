@@ -7,9 +7,35 @@ type Connection = Awaited<ReturnType<typeof createConnection>>;
 
 createConnection()
   .then(async (connection) => {
-    await loadingObjectsWithTheirRelationsWithQueryBuilder(connection);
+    await savingPhotoAndPhotoMetadataWithCascadeOption(connection);
   })
   .catch((error) => console.log(error));
+
+async function savingPhotoAndPhotoMetadataWithCascadeOption(
+  connection: Connection
+) {
+  const photo = new Photo(
+    "Me and ducks",
+    "I am near ducks",
+    "photo-with-ducks.jpg",
+    1,
+    true
+  );
+
+  const metadata = new PhotoMetadata(
+    640,
+    480,
+    "portrait",
+    true,
+    "historical photo"
+  );
+
+  photo.metadata = metadata; // we've connected objs
+
+  const photoRepository = connection.getRepository(Photo);
+  const savedRes = await photoRepository.save(photo);
+  console.log("savedRes photo ", savedRes);
+}
 
 async function loadingObjectsWithTheirRelationsWithQueryBuilder(
   connection: Connection

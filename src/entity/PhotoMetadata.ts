@@ -16,7 +16,7 @@ export class PhotoMetadata {
     orientation: string,
     compressed: boolean,
     comment: string,
-    photo: Photo
+    photo?: Photo
   ) {
     this.height = height;
     this.width = width;
